@@ -1,0 +1,36 @@
+
+// Creating a database in hive
+create database project_1;
+
+// Selecting the database
+use project_01;
+
+// Creating the table
+CREATE TABLE IF NOT EXISTS taxidata(
+    vendor_id string, 
+    pickup_datetime string,
+    dropoff_datetime string, 
+    passenger_count int, 
+    trip_distance DECIMAL(9,6),
+    pickup_longitude DECIMAL(9,6), 
+    pickup_latitude DECIMAL(9,6), 
+    rate_code int,
+    store_and_fwd_flag string, 
+    dropoff_longitude DECIMAL(9,6), 
+    dropoff_latitude DECIMAL(9,6),
+    payment_type string, 
+    fare_amount DECIMAL(9,6), 
+    extra DECIMAL(9,6),
+    mta_tax DECIMAL(9,6), 
+    tip_amount DECIMAL(9,6), 
+    tolls_amount DECIMAL(9,6),
+    total_amount DECIMAL(9,6), 
+    trip_time_in_secs int
+)
+ROW FORMAT DELIMITED 
+FIELDS TERMINATED BY ',' 
+STORED as TEXTFILE
+TBLPROPERTIES ("skip.header.line.count"="1");
+
+// Loading the data into this table , we have taxi_data_02.csv in our local directory "/home/cloudera/hive_data" and we want to load this data into this hive table
+load data local inpath "/home/cloudera/hive_data/taxi_data_02.csv" into table taxidata;
